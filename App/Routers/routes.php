@@ -1,6 +1,7 @@
 <?php
 use App\Routers\Router as Router;
 use App\Middlewares\AuthMiddleware;
+use App\Controllers\PhoneController;
 
 // use Controllers
 use App\Controllers\AuthController;
@@ -24,3 +25,4 @@ $router = new Router();
 $router->post('v1','/login', AuthController::class, 'login');
 $router->post('v1','/register', AuthController::class, 'register');
 $router->post('v1','/verify', AuthController::class, 'verify');
+$router->get('v1','/phones',PhoneController::class,'index');
