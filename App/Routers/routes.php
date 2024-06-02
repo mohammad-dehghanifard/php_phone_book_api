@@ -15,9 +15,9 @@ $request = (object) [
     "body"    => getPostDataInput()->token ?? null
 ];
 
-$response = $authMiddleware->handle($request);
-
-if(!$response) exit();
+//$response = $authMiddleware->handle($request);
+//
+//if(!$response) exit();
 
 $router = new Router();
 

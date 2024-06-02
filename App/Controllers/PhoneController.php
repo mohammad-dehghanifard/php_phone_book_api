@@ -19,6 +19,6 @@ class PhoneController
     public function index()
     {
         $phones = $this->queryBuilder->table("phones")->getAll()->execute();
-        return $this->sendResponse(message: "لیست شماره تلفن ها",data: $phones);
+        return $this->sendResponse(data: $phones,message: "phone list");
     }
 }

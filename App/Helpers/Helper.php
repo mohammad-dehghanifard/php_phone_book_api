@@ -28,9 +28,8 @@ function getPostDataInput()
 }
 function getPath($version = true)
 {
-    $requestUri = explode('?', str_replace('/RestApi/phone_book_api/', '', strtolower($_SERVER["REQUEST_URI"])))[0];
+    $requestUri = explode('?', str_replace('/restapi/phone_book_api/', '', strtolower($_SERVER["REQUEST_URI"])))[0];
     if(!$version) $requestUri = explode('?', str_replace(['v1/', 'v2/'], '', $requestUri))[0];
-    dd($requestUri);
     return $requestUri;
 }
 
