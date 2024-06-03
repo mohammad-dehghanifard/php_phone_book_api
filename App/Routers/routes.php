@@ -25,4 +25,5 @@ $router = new Router();
 $router->post('v1','/login', AuthController::class, 'login');
 $router->post('v1','/register', AuthController::class, 'register');
 $router->post('v1','/verify', AuthController::class, 'verify');
-$router->get('v1','/phones',PhoneController::class,'index');
+$router->get('v1','/phones',PhoneController::class,'getAll');
+$router->get('v1','/phones/{id}',PhoneController::class,'getPhoneById');
