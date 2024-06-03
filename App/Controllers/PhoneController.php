@@ -35,4 +35,14 @@ class PhoneController
 
         return $this->sendResponse(data: $phone,message: $message,error: $error);
     }
+
+    public function createPhone($request)
+    {
+        $newPhone = $this->queryBuilder->table($this->phoneTable)->insert([
+            "username" => $request->username,
+            "phone" => $request->phone
+        ])->execute();
+
+        return $this->sendResponse(data: $newPhone,message: "ماره تلفن با موفقیت ایجاد شد!");
+    }
 }

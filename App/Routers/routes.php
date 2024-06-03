@@ -27,3 +27,4 @@ $router->post('v1','/register', AuthController::class, 'register');
 $router->post('v1','/verify', AuthController::class, 'verify');
 $router->get('v1','/phones',PhoneController::class,'getAll');
 $router->get('v1','/phones/{id}',PhoneController::class,'getPhoneById');
+$router->post('v1','/phone',PhoneController::class,'createPhone');
