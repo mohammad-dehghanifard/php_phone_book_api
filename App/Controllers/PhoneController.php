@@ -19,21 +19,16 @@ class PhoneController
     public function getAll()
     {
         $phones = $this->queryBuilder->table($this->phoneTable)->getAll()->execute();
+        if(count($phones) < 1) return $this->sendResponse(data: $phones,message: "لیست مخاطبین شما خالی است!");
         return $this->sendResponse(data: $phones,message: "phone list");
     }
 
     public function getPhoneById($id)
     {
         $phone = $this->queryBuilder->table($this->phoneTable)->get()->where("id","=",$id)->execute();
-        $message = "شماره تلفن مورد نظر با موفقیت پیدا شد";
-        $error = false;
-        if(!$phone)
-        {
-            $message = "شماره تلفنی پیدا نشد!";
-            $error = true;
-        }
 
-        return $this->sendResponse(data: $phone,message: $message,error: $error);
+        if(!$phone) return $this->sendResponse(data: $phone,message: "شماره تلفنی پیدا نشد",error: true,status: 400);
+        return $this->sendResponse(data: $phone,message: "شماره تلفن مورد نظر با موفقیت پیدا شد");
     }
 
     public function createPhone($request)
