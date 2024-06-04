@@ -29,3 +29,4 @@ $router->get('v1','/phones',PhoneController::class,'getAll');
 $router->get('v1','/phones/{id}',PhoneController::class,'getPhoneById');
 $router->post('v1','/phone',PhoneController::class,'createPhone');
 $router->put('v1','/phone/{id}',PhoneController::class,'updatePhone');
+$router->delete('v1','/phone/{id}',PhoneController::class,'deletePhone');

@@ -54,4 +54,13 @@ class PhoneController
         ])->where("id","=",$id)->execute();
         return $this->sendResponse(data: $updatePhone,message: "شماره تلفن با موفقیت اپدیت شد!");
     }
+
+    public function deletePhone($id)
+    {
+        $deletedPhone = $this->
+        queryBuilder->table($this->phoneTable)
+            ->delete()->where("id","=",$id)->execute();
+
+        return $this->sendResponse(data: $deletedPhone,message: "شماره مورد نظر حذف شد!");
+    }
 }
