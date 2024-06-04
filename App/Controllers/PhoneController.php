@@ -45,4 +45,13 @@ class PhoneController
 
         return $this->sendResponse(data: $newPhone,message: "ماره تلفن با موفقیت ایجاد شد!");
     }
+
+    public function updatePhone($id,$request)
+    {
+        $updatePhone = $this->queryBuilder->table($this->phoneTable)->update([
+            "username" => $request->username,
+            "phone" => $request->phone
+        ])->where("id","=",$id)->execute();
+        return $this->sendResponse(data: $updatePhone,message: "شماره تلفن با موفقیت اپدیت شد!");
+    }
 }
