@@ -27,12 +27,19 @@ class PhoneController
     {
         $phone = $this->queryBuilder->table($this->phoneTable)->get()->where("id","=",$id)->execute();
 
-        if(!$phone) return $this->sendResponse(data: $phone,message: "شماره تلفنی پیدا نشد",error: true,status: 400);
+        if(!$phone) return $this->sendResponse(data: $phone,message: "شماره تلفنی پیدا نشد",error: true,status: HTTP_BadREQUEST);
         return $this->sendResponse(data: $phone,message: "شماره تلفن مورد نظر با موفقیت پیدا شد");
     }
 
     public function createPhone($request)
     {
+        $isError = false;
+        $errorMessages = [];
+        if(empty($request->username)) $isError = true && array_push($errorMessages,"لطفا نام کاربری را وارد کنید");
+        if(empty($request->phone)) $isError = true && array_push($errorMessages,"لطفا شماره تلفن را وارد کنید");
+
+        if($isError) return $this->sendResponse(message: $errorMessages,error: $isError,status: HTTP_BadREQUEST);
+
         $newPhone = $this->queryBuilder->table($this->phoneTable)->insert([
             "username" => $request->username,
             "phone" => $request->phone
