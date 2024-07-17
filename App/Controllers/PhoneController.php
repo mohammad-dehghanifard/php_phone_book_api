@@ -4,10 +4,12 @@ namespace App\Controllers;
 
 use App\Traits\ResponseTrait;
 use App\Database\QueryBuilder;
+use App\Validations\ValidateData;
 
 class PhoneController
 {
     use ResponseTrait;
+    use ValidateData;
 
     protected $queryBuilder;
     protected  $phoneTable = "phones";
@@ -33,19 +35,26 @@ class PhoneController
 
     public function createPhone($request)
     {
-        $isError = false;
-        $errorMessages = [];
-        if(empty($request->username)) $isError = true && array_push($errorMessages,"لطفا نام کاربری را وارد کنید");
-        if(empty($request->phone)) $isError = true && array_push($errorMessages,"لطفا شماره تلفن را وارد کنید");
+        $validate = $this->validate(
+            fields: [
+                'username||min:3|max:15',
+                'phone'
+            ],
+            request: $request
+        );
 
-        if($isError) return $this->sendResponse(message: $errorMessages,error: $isError,status: HTTP_BadREQUEST);
+        if($validate)
+        {
+            $newPhone = $this->queryBuilder->table($this->phoneTable)->insert([
+                "username" => $request->username,
+                "phone" => $request->phone
+            ])->execute();
 
-        $newPhone = $this->queryBuilder->table($this->phoneTable)->insert([
-            "username" => $request->username,
-            "phone" => $request->phone
-        ])->execute();
+            return $this->sendResponse(data: $newPhone,message: "شماره تلفن با موفقیت ایجاد شد!");
+        }
 
-        return $this->sendResponse(data: $newPhone,message: "ماره تلفن با موفقیت ایجاد شد!");
+
+
     }
 
     public function updatePhone($id,$request)
